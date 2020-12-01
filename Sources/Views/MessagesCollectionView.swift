@@ -115,8 +115,8 @@ open class MessagesCollectionView: UICollectionView {
         
         guard lastItemIndex >= 0 else { return }
         
-        let indexPath = IndexPath(row: lastItemIndex, section: lastSection)
-        scrollToItem(at: indexPath, at: pos, animated: animated)
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.scrollToItem(at: indexPath, at: pos, animated: animated)
     }
     
     // NOTE: This method seems to cause crash in certain cases - https://github.com/MessageKit/MessageKit/issues/725
