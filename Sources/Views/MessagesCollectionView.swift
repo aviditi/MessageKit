@@ -124,8 +124,8 @@ open class MessagesCollectionView: UICollectionView {
     public func scrollToBottom(animated: Bool = false) {
         performBatchUpdates(nil) { [weak self] _ in
             guard let self = self else { return }
-            let collectionViewContentHeight = self.collectionViewLayout.collectionViewContentSize.height
-            self.scrollRectToVisible(CGRect(0.0, collectionViewContentHeight - 1.0, 1.0, 1.0), animated: animated)
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
         }
     }
     
