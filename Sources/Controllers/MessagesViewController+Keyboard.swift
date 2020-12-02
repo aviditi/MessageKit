@@ -100,10 +100,10 @@ internal extension MessagesViewController {
             messagesCollectionView.setContentOffset(contentOffset, animated: false)
         }
 
-        UIView.performWithoutAnimation {
-            messageCollectionViewBottomInset = newBottomInset - 20
-            messagesCollectionView.scrollToBottom()
-        }
+        UIView.animate(withDuration: 0.5, delay: 0.1, options: .curveEaseOut, animations: {
+            self.messageCollectionViewBottomInset = newBottomInset + 10
+            self.messagesCollectionView.scrollToBottom(animated: true)
+        })
     }
 
     // MARK: - Inset Computation
@@ -124,7 +124,7 @@ internal extension MessagesViewController {
 
     func requiredInitialScrollViewBottomInset() -> CGFloat {
         let inputAccessoryViewHeight = inputAccessoryView?.frame.height ?? 0
-        return max(0, (inputAccessoryViewHeight - 20) + additionalBottomInset - automaticallyAddedBottomInset)
+        return max(0, (inputAccessoryViewHeight + 10) + additionalBottomInset - automaticallyAddedBottomInset)
     }
 
     /// UIScrollView can automatically add safe area insets to its contentInset,

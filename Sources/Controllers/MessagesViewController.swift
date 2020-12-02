@@ -107,8 +107,8 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
 
     internal var messageCollectionViewBottomInset: CGFloat = 0 {
         didSet {
-            messagesCollectionView.contentInset.top = messageCollectionViewBottomInset - 20
-            messagesCollectionView.scrollIndicatorInsets.top = messageCollectionViewBottomInset - 20
+            messagesCollectionView.contentInset.top = messageCollectionViewBottomInset
+            messagesCollectionView.scrollIndicatorInsets.top = messageCollectionViewBottomInset
         }
     }
 
@@ -202,7 +202,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
         case .began, .changed:
             messagesCollectionView.showsVerticalScrollIndicator = false
             let translation = gesture.translation(in: view)
-            let minX = -(view.frame.size.width * 0.35)
+            let minX = -(view.frame.size.width * 0.20)
             let maxX: CGFloat = 0
             var offsetValue = translation.x
             offsetValue = max(offsetValue, minX)
