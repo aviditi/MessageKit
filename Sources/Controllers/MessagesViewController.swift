@@ -284,9 +284,9 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
     /// - Parameter section: The index to modify
     private func performUpdatesForTypingIndicatorVisability(at section: Int) {
         if isTypingIndicatorHidden {
-            messagesCollectionView.deleteSections([section - 1])
+            messagesCollectionView.deleteSections([0])
         } else {
-            messagesCollectionView.insertSections([section])
+            messagesCollectionView.insertSections([0])
         }
     }
 
@@ -345,8 +345,9 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
 
         switch message.kind {
         case .text, .attributedText, .emoji:
-            let cell = messagesCollectionView.dequeueReusableCell(TextMessageCell.self, for: indexPath)
+            let cell = messagesCollectionView.dequeueReusableCell(TextMessageCell.self, for: indexPath) as! TextMessageCell
             cell.configure(with: message, at: indexPath, and: messagesCollectionView)
+            cell.messageLabel.accessibilityIdentifier = "Message Text Label"
             return cell
         case .photo, .video:
             let cell = messagesCollectionView.dequeueReusableCell(MediaMessageCell.self, for: indexPath)
