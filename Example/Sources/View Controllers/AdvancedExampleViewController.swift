@@ -1,7 +1,7 @@
 /*
  MIT License
  
- Copyright (c) 2017-2019 MessageKit
+ Copyright (c) 2017-2020 MessageKit
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import UIKit
 import MapKit
 import MessageKit
 import InputBarAccessoryView
-import PINRemoteImage
+import Kingfisher
 
 final class AdvancedExampleViewController: ChatViewController {
         
@@ -60,7 +60,7 @@ final class AdvancedExampleViewController: ChatViewController {
                 DispatchQueue.main.async {
                     self.messageList = messages
                     self.messagesCollectionView.reloadData()
-                    self.messagesCollectionView.scrollToBottom()
+                    self.messagesCollectionView.scrollToLastItem()
                 }
             }
         }
@@ -105,7 +105,16 @@ final class AdvancedExampleViewController: ChatViewController {
     }
     
     override func configureMessageInputBar() {
-        super.configureMessageInputBar()
+        //super.configureMessageInputBar()
+        
+        messageInputBar = CameraInputBarAccessoryView()
+        messageInputBar.delegate = self
+        messageInputBar.inputTextView.tintColor = .primaryColor
+        messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
+        messageInputBar.sendButton.setTitleColor(
+            UIColor.primaryColor.withAlphaComponent(0.3),
+            for: .highlighted)
+        
         
         messageInputBar.isTranslucent = true
         messageInputBar.separatorLine.isHidden = true
@@ -202,7 +211,7 @@ final class AdvancedExampleViewController: ChatViewController {
         updateTitleView(title: "MessageKit", subtitle: isHidden ? "2 Online" : "Typing...")
         setTypingIndicatorViewHidden(isHidden, animated: true, whilePerforming: updates) { [weak self] success in
             if success, self?.isLastSectionVisible() == true {
-                self?.messagesCollectionView.scrollToBottom(animated: true)
+                self?.messagesCollectionView.scrollToLastItem(animated: true)
             }
         }
     }
@@ -373,9 +382,9 @@ extension AdvancedExampleViewController: MessagesDisplayDelegate {
 
     func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         if case MessageKind.photo(let media) = message.kind, let imageURL = media.url {
-            imageView.pin_setImage(from: imageURL)
+            imageView.kf.setImage(with: imageURL)
         } else {
-            imageView.pin_cancelImageDownload()
+            imageView.kf.cancelDownloadTask()
         }
     }
     
@@ -439,3 +448,28 @@ extension AdvancedExampleViewController: MessagesLayoutDelegate {
     }
 
 }
+
+
+extension AdvancedExampleViewController: CameraInputBarAccessoryViewDelegate {
+
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith attachments: [AttachmentManager.Attachment]) {
+        
+        
+        for item in attachments {
+            if  case .image(let image) = item {
+              
+                self.sendImageMessage(photo: image)
+            }
+        }
+        inputBar.invalidatePlugins()
+    }
+    
+    
+    func sendImageMessage( photo  : UIImage)  {
+       
+        let photoMessage = MockMessage(image: photo, user: self.currentSender() as! MockUser, messageId: UUID().uuidString, date: Date())
+        self.insertMessage(photoMessage)
+    }
+    
+}
+

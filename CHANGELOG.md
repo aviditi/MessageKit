@@ -8,9 +8,52 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 
 ### Added
 
+- Added enough data source and delegate methods to display customized `UICollectionViewCell` for MessageTypes other than `.custom` in [#1577](https://github.com/MessageKit/MessageKit/pull/1577) by [@jvigneshcs](https://github.com/jvigneshcs)
+
+### Changed
+
+### Removed
+
+## 3.6.0
+
+### Fixed
+
+- Fixes an issue with Scroll problem on new messages with keyboard open [#1529](https://github.com/MessageKit/MessageKit/pull/1529) by [@politan8](https://github.com/politan8)
+
+- Fixes time stamp vertical alignment so labels align with messages when showMessageTimestampOnSwipeLeft is true.
+  by [@kurtsequoia](https://github.com/MessageKit/MessageKit/pull/1556)
+  
+- **Breaking Change** Changed `MessagesLayoutDelegate`'s method for typing indicator size. Typing indicator's size is now correctly calculated based on delegate method `func typingIndicatorViewSize(for layout: MessagesCollectionViewFlowLayout) -> CGSize` [#1563](https://github.com/MessageKit/MessageKit/pull/1563) by [@kaspik](https://github.com/kaspik)
+
+### Added
+
+### Changed
+
+- Changed `resource_bundle` back to `resources` in MessageKit.podspec [#1565](https://github.com/MessageKit/MessageKit/pull/1565) by [@kaspik](https://github.com/kaspik)
+
+### Removed
+
+## 3.5.1
+
+### Fixed
+- `MessagesViewController` now smoothly scrolls messages off screen. [1531](https://github.com/MessageKit/MessageKit/issues/1531) & [1547](https://github.com/MessageKit/MessageKit/pull/1547) by [@mredig](https://github.com/mredig)
+
+### Changed
+- Bump `InputBarAccessoryView`
+
+## 3.5.0
+
+### Fixed
+
+- maintainPositionOnKeyboardFrameChanged for small contentSize would scroll content out of bounds [#1506](https://github.com/MessageKit/MessageKit/pull/1506) by [@martinpucik](https://github.com/martinpucik)
+
+### Added
+
 ### Changed
 
 - Changed `resources` to `resource_bundle` in MessageKit.podspec [#1460](https://github.com/MessageKit/MessageKit/pull/1460) by [@martinpucik](https://github.com/martinpucik)
+- Changed dependency manager for Example project to SPM [#1504](https://github.com/MessageKit/MessageKit/pull/1504) by [@martinpucik](https://github.com/martinpucik)
+- Deprecated `messagesCollectionView.scrollToBottom` and `scrollsToBottomOnKeyboardBeginsEditing` in favor of `messagesCollectionView.scrollToLastItem` and `scrollsToLastItemOnKeyboardBeginsEditing`. This will be removed in a future release [#1505](https://github.com/MessageKit/MessageKit/pull/1505) by [@martinpucik](https://github.com/martinpucik)
 
 ### Removed
 
