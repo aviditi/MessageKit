@@ -136,7 +136,7 @@ internal extension MessagesViewController {
 
     func requiredInitialScrollViewBottomInset() -> CGFloat {
         let inputAccessoryViewHeight = inputAccessoryView?.frame.height ?? 0
-        return max(0, (inputAccessoryViewHeight + 10) + additionalBottomInset - automaticallyAddedBottomInset)
+        return max(0, (inputAccessoryViewHeight + 0.0) + additionalBottomInset - automaticallyAddedBottomInset)
     }
 
     /// UIScrollView can automatically add safe area insets to its contentInset,
@@ -144,6 +144,6 @@ internal extension MessagesViewController {
     ///
     /// - Returns: The distance automatically added to contentInset.bottom, if any.
     private var automaticallyAddedBottomInset: CGFloat {
-        return messagesCollectionView.adjustedContentInset.bottom - messagesCollectionView.contentInset.bottom
+        return messagesCollectionView.adjustedContentInset.top - messagesCollectionView.contentInset.top
     }
 }
