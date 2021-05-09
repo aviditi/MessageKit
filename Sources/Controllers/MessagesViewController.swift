@@ -350,7 +350,6 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
         switch message.kind {
         case .text, .attributedText, .emoji:
             if let cell = messagesDataSource.textCell(for: message, at: indexPath, in: messagesCollectionView) {
-                cell.messageLabel.accessibilityIdentifier = "Message Text Label"
                 return cell
             } else {
                 let cell = messagesCollectionView.dequeueReusableCell(TextMessageCell.self, for: indexPath)
