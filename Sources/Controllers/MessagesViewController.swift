@@ -476,6 +476,11 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecogni
     }
 
     open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        // When using appium, this is encounters weird scenario when getting accessbility snahpshot where indexpath is null. Setting this to return false in dev builds for automated testing.
+        #if DEBUG
+        return false
+        #endif
+        
         if isSectionReservedForTypingIndicator(indexPath.section) {
             return false
         }
